@@ -9,7 +9,7 @@ import {
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ modalBox, setModalBox }) => {
 	return (
 		<Container>
 			<MainLogo>
@@ -43,10 +43,18 @@ const Header = () => {
 					</li>
 				</NaviUl>
 			</Navi>
+
 			<Icon>
-				<FontAwesomeIcon icon={faSearch} style={{}} />
-				<FontAwesomeIcon icon={faShoppingCart} style={{}} />
-				<FontAwesomeIcon icon={faUser} style={{}} />
+				<SearchContainer>
+					<FontAwesomeIcon icon={faSearch} onClick={() => setModalBox(true)} />
+				</SearchContainer>
+
+				<Link to="/cart" style={{ color: "black", textDecoration: "none" }}>
+					<FontAwesomeIcon icon={faShoppingCart} />
+				</Link>
+				<Link to="/auth" style={{ color: "black", textDecoration: "none" }}>
+					<FontAwesomeIcon icon={faUser} style={{}} />
+				</Link>
 			</Icon>
 		</Container>
 	);
@@ -57,7 +65,7 @@ export default Header;
 const Container = styled.div`
 	margin-top: 0px;
 	display: flex;
-	width: 90%;
+	width: 87%;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
@@ -68,12 +76,14 @@ const MainLogo = styled.div`
 `;
 
 const Navi = styled.div`
-	width: 300px;
+	width: 350px;
 	font-size: 25px;
+	font-family: "Big Shoulders Stencil Display";
 `;
 
 const NaviUl = styled.ul`
 	list-style: none;
+	padding-left: 0px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
@@ -83,4 +93,10 @@ const Icon = styled.div`
 	display: flex;
 	width: 80px;
 	justify-content: space-between;
+`;
+
+const SearchContainer = styled.div`
+	:hover {
+		cursor: pointer;
+	}
 `;
