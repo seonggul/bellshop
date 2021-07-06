@@ -1,4 +1,5 @@
 import React from "react";
+
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Home from "../routes/Home";
@@ -11,7 +12,7 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 	return (
 		<Router>
 			<Header modalBox={modalBox} setModalBox={setModalBox} />
-			<div>
+			<div style={{ paddingTop: "80px" }}>
 				<Switch>
 					<Route exact path="/home">
 						<Home />
