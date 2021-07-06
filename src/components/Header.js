@@ -1,74 +1,93 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import {
-	faDumbbell,
 	faSearch,
 	faShoppingCart,
-	faUser,
+	faBars,
+	faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import DropDown from "./NaviDropDown";
+import logo from "../img/logo_transparent.svg";
 
 const Header = ({ modalBox, setModalBox }) => {
 	const [drop, setDrop] = useState(false);
+	const linkstyle = {
+		color: "black",
+		textDecoration: "none",
+	};
 	return (
-		<>
-			<Container>
-				<MainLogo>
-					<Link to="/Home" style={{ color: "black", textDecoration: "none" }}>
-						<FontAwesomeIcon icon={faDumbbell} />
-						<span
-							style={{
-								paddingLeft: "5px",
-								fontSize: "50px",
-								fontFamily: "Jomhuria",
-							}}
-						>
-							Bell Shop
-						</span>
+		<Container>
+			<Auth>
+				<Link to="/auth" style={linkstyle}>
+					<span
+						style={{
+							color: "black",
+						}}
+					>
+						회원가입
+					</span>
+				</Link>
+				<EmptyLine>
+					<Link to="/auth" style={linkstyle}>
+						<span>로그인</span>
 					</Link>
-				</MainLogo>
+				</EmptyLine>
+				<span>
+					고객센터
+					<FontAwesomeIcon icon={faCaretDown} />
+				</span>
+			</Auth>
+
+			<MainLogo>
+				<Link to="/Home" style={linkstyle}>
+					<img
+						src={logo}
+						style={{
+							width: "180px",
+							height: "120px",
+						}}
+						alt="logo"
+					/>
+				</Link>
+			</MainLogo>
+			<div>
 				<Navi>
 					<NaviUl>
-						<Item1>
-							<Link
-								to="/shop"
-								style={{ color: "black", textDecoration: "none" }}
-							>
+						<Item>
+							<FontAwesomeIcon icon={faBars} />
+							<span>전체 카테고리</span>
+						</Item>
+						<Item>
+							<Link to="/shop" style={linkstyle}>
 								Shop
 							</Link>
-						</Item1>
-						<Item2>
-							<Link
-								to="/community"
-								style={{ color: "black", textDecoration: "none" }}
-							>
+						</Item>
+						<Item>
+							<Link to="/community" style={linkstyle}>
 								Community
 							</Link>
-						</Item2>
+						</Item>
+						<Item>
+							<SearchContainer>
+								<FontAwesomeIcon
+									icon={faSearch}
+									onClick={() => setModalBox(true)}
+								/>
+							</SearchContainer>
+						</Item>
+						<Item>
+							<Link to="/cart" style={linkstyle}>
+								<FontAwesomeIcon icon={faShoppingCart} />
+							</Link>
+						</Item>
 					</NaviUl>
 				</Navi>
+			</div>
 
-				<Icon>
-					<SearchContainer>
-						<FontAwesomeIcon
-							icon={faSearch}
-							onClick={() => setModalBox(true)}
-						/>
-					</SearchContainer>
-
-					<Link to="/cart" style={{ color: "black", textDecoration: "none" }}>
-						<FontAwesomeIcon icon={faShoppingCart} />
-					</Link>
-					<Link to="/auth" style={{ color: "black", textDecoration: "none" }}>
-						<FontAwesomeIcon icon={faUser} style={{}} />
-					</Link>
-				</Icon>
-
-				<DropDown drop={drop} />
-			</Container>
-		</>
+			{/* <DropDown drop={drop} /> */}
+		</Container>
 	);
 };
 
@@ -79,19 +98,19 @@ const Container = styled.div`
 	margin-top: 0px;
 	display: flex;
 	width: 87%;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 998;
 `;
 
-const MainLogo = styled.div`
-	font-size: 30px;
-`;
+const MainLogo = styled.div``;
 
 const Navi = styled.div`
-	width: 310px;
-	font-size: 25px;
+	width: 85vw;
+	font-size: 20px;
 	font-family: "Big Shoulders Stencil Display";
+	background-color: "#607D8B";
 `;
 
 const NaviUl = styled.ul`
@@ -99,13 +118,16 @@ const NaviUl = styled.ul`
 	padding-left: 0px;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 `;
 
-const Icon = styled.div`
+const Auth = styled.div`
 	display: flex;
-	width: 80px;
-	justify-content: space-between;
+	width: 100vw;
+	justify-content: flex-end;
+	font-size: 10px;
+	padding-top: 3px;
+	padding-right: 20px;
 `;
 
 const SearchContainer = styled.div`
@@ -114,15 +136,22 @@ const SearchContainer = styled.div`
 	}
 `;
 
-const Item1 = styled.li`
+const Item = styled.li`
 	position: relative;
 	display: inline-block;
 	:hover {
 	}
 `;
-const Item2 = styled.li`
-	position: relative;
-	display: inline-block;
-	:hover {
+
+const EmptyLine = styled.div`
+	::before {
+		padding-left: 3px;
+		padding-right: 3px;
+		content: "|";
+	}
+	::after {
+		padding-left: 3px;
+		padding-right: 3px;
+		content: "|";
 	}
 `;

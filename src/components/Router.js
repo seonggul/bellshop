@@ -7,12 +7,13 @@ import Community from "../routes/Community";
 import Shop from "../routes/Shop";
 import Cart from "../routes/Cart";
 import Auth from "../routes/Auth";
+import styled from "styled-components";
 
 const AppRouter = ({ modalBox, setModalBox }) => {
 	return (
 		<Router>
 			<Header modalBox={modalBox} setModalBox={setModalBox} />
-			<div style={{ paddingTop: "80px" }}>
+			<Content style={{ paddingTop: "80px" }}>
 				<Switch>
 					<Route exact path="/home">
 						<Home />
@@ -30,9 +31,13 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 						<Auth />
 					</Route>
 				</Switch>
-			</div>
+			</Content>
 		</Router>
 	);
 };
 
 export default AppRouter;
+
+const Content = styled.div`
+	margin-top: 220px;
+`;
