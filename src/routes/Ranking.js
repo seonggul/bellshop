@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const Home = () => {
+const Ranking = () => {
 	return (
 		<Container>
-			<span>Home</span>
+			<span>Ranking</span>
 		</Container>
 	);
 };
 
-export default Home;
+export default Ranking;
 
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: blue;
 `;
