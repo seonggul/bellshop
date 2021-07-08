@@ -75,6 +75,12 @@ const Navi = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	a {
+		:hover {
+			color: #fdcb6e;
+			border-bottom: 2px solid #fdcb6e;
+		}
+	}
 `;
 
 const Menu = styled.li`
