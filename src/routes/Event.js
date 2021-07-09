@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const Community = () => {
+const Event = () => {
 	return (
 		<Container>
-			<span>community</span>
+			<span>Event</span>
 		</Container>
 	);
 };
 
-export default Community;
+export default Event;
 
 const Container = styled.div`
 	display: flex;

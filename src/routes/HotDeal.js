@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const Shop = () => {
+const HotDeal = () => {
 	return (
 		<Container>
-			<span>Shop</span>
+			<span>HotDeal</span>
 		</Container>
 	);
 };
 
-export default Shop;
+export default HotDeal;
 
 const Container = styled.div`
 	display: flex;

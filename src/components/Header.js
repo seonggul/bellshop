@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import {
-	faSearch,
 	faShoppingCart,
 	faBars,
 	faCaretDown,
@@ -11,8 +10,9 @@ import { Link } from "react-router-dom";
 import DropDown from "./NaviDropDown";
 import logo from "../img/logo_transparent.svg";
 
+import Navigation from "./Navigation";
+
 const Header = ({ modalBox, setModalBox }) => {
-	const [drop, setDrop] = useState(false);
 	const linkstyle = {
 		color: "black",
 		textDecoration: "none",
@@ -45,46 +45,14 @@ const Header = ({ modalBox, setModalBox }) => {
 					<img
 						src={logo}
 						style={{
-							width: "180px",
-							height: "120px",
+							width: "200px",
+							height: "140px",
 						}}
 						alt="logo"
 					/>
 				</Link>
 			</MainLogo>
-			<div>
-				<Navi>
-					<NaviUl>
-						<Item>
-							<FontAwesomeIcon icon={faBars} />
-							<span>전체 카테고리</span>
-						</Item>
-						<Item>
-							<Link to="/shop" style={linkstyle}>
-								Shop
-							</Link>
-						</Item>
-						<Item>
-							<Link to="/community" style={linkstyle}>
-								Community
-							</Link>
-						</Item>
-						<Item>
-							<SearchContainer>
-								<FontAwesomeIcon
-									icon={faSearch}
-									onClick={() => setModalBox(true)}
-								/>
-							</SearchContainer>
-						</Item>
-						<Item>
-							<Link to="/cart" style={linkstyle}>
-								<FontAwesomeIcon icon={faShoppingCart} />
-							</Link>
-						</Item>
-					</NaviUl>
-				</Navi>
-			</div>
+			<Navigation linkstyle={linkstyle} />
 
 			{/* <DropDown drop={drop} /> */}
 		</Container>
@@ -97,49 +65,31 @@ const Container = styled.div`
 	position: absolute;
 	margin-top: 0px;
 	display: flex;
-	width: 87%;
+	width: 100%;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	z-index: 998;
 `;
 
-const MainLogo = styled.div``;
-
-const Navi = styled.div`
-	width: 85vw;
-	font-size: 20px;
-	font-family: "Big Shoulders Stencil Display";
-	background-color: "#607D8B";
-`;
-
-const NaviUl = styled.ul`
-	list-style: none;
-	padding-left: 0px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-`;
-
 const Auth = styled.div`
 	display: flex;
-	width: 100vw;
+	width: 85vw;
 	justify-content: flex-end;
-	font-size: 10px;
+	font-size: 15px;
 	padding-top: 3px;
-	padding-right: 20px;
+	padding-bottom: 5px;
 `;
 
-const SearchContainer = styled.div`
-	:hover {
-		cursor: pointer;
-	}
-`;
-
-const Item = styled.li`
-	position: relative;
-	display: inline-block;
-	:hover {
+const MainLogo = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 80vw;
+	::before {
+		content: "";
+		width: 100vw;
+		border-bottom: 1px solid #eaeaea;
 	}
 `;
 

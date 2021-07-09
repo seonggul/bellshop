@@ -1,20 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import ImgCarousel from "../components/ImgCarousel";
 
-const Home = () => {
+const Ranking = () => {
 	return (
 		<Container>
-			<ImgCarousel />
-			<span>Home</span>
+			<span>Ranking</span>
 		</Container>
 	);
 };
 
-export default Home;
+export default Ranking;
 
 const Container = styled.div`
-	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
