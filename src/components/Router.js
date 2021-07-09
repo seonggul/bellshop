@@ -47,5 +47,5 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 export default AppRouter;
 
 const Content = styled.div`
-	margin-top: 180px;
+	margin-top: 170px;
 `;

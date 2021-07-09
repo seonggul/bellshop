@@ -13,7 +13,7 @@ import {
 const ImgCarousel = () => {
 	const [cuurrentImg, setCurrentImg] = useState(0);
 	const imgRef = useRef(null);
-	const TotalImg = 3;
+	const TotalImg = 4;
 	const nextImg = () => {
 		if (cuurrentImg >= TotalImg) {
 			setCurrentImg(0);
@@ -28,16 +28,12 @@ const ImgCarousel = () => {
 			setCurrentImg(cuurrentImg - 1);
 		}
 	};
-	useEffect(() => {
-		imgRef.current.style.trasition = "all 0.5s ease-in-out";
-		setInterval(
-			(imgRef.current.style.transform = `translateX(${cuurrentImg}00%),1000`)
-		);
-	}, [cuurrentImg]);
+
+	useEffect(() => {}, [cuurrentImg]);
 	return (
 		<Container>
-			<SliderContainer ref={imgRef}>
-				<ul>
+			<SliderContainer>
+				<ul ref={imgRef}>
 					<li data-index="">
 						<Img src={img1} alt="img1" />
 					</li>
@@ -81,7 +77,8 @@ const SliderContainer = styled.div`
 		flex-wrap: nowrap;
 		transition-timing-function: ease-in-out;
 		transition-duration: 1s;
-		transform: translate3d(1920px, 0px, 0px);
+
+		transform: translate3d(0px, 0px, 0px);
 		li {
 			:hover {
 				cursor: pointer;

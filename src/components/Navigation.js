@@ -16,19 +16,20 @@ const Navigation = ({ linkstyle }) => {
 				<span>전체 카테고리</span>
 			</Category>
 			<Navi>
-				<Link to="/new" style={linkstyle}>
-					신상품
-				</Link>
-				<Link to="/ranking" style={linkstyle}>
-					랭킹
-				</Link>
-				<Link to="/hotdeal" style={linkstyle}>
-					이달의 특가
-				</Link>
-				<Link to="/event" style={linkstyle}>
-					이벤트
-				</Link>
-
+				<NaviItem>
+					<Link to="/new" style={linkstyle}>
+						신상품
+					</Link>
+					<Link to="/ranking" style={linkstyle}>
+						랭킹
+					</Link>
+					<Link to="/hotdeal" style={linkstyle}>
+						이달의 특가
+					</Link>
+					<Link to="/event" style={linkstyle}>
+						이벤트
+					</Link>
+				</NaviItem>
 				<InputBox style={{ display: "flex", flexDirection: "row" }}>
 					<SearchForm />
 
@@ -54,33 +55,46 @@ const Container = styled.div`
 `;
 
 const Category = styled.div`
-	position: fixed;
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
-	width: 180px;
+	justify-content: space-around;
+	width: 155px;
 	height: 50px;
 	:hover {
+		border-radius: 5px;
 		cursor: pointer;
 		background-color: black;
 		color: white;
 	}
+	span {
+		width: 130px;
+	}
+	svg {
+		padding-left: 10px;
+	}
 `;
 
-const Navi = styled.div`
-	margin-left: 200px;
-	display: flex;
+const NaviItem = styled.div`
 	width: 100%;
-	flex-direction: row;
+	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 	a {
 		:hover {
 			color: #fdcb6e;
 			border-bottom: 2px solid #fdcb6e;
 		}
 	}
+`;
+
+const Navi = styled.div`
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 `;
 
 const Menu = styled.li`
