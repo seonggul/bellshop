@@ -7,6 +7,18 @@ const Home = () => {
 		<Container>
 			<ImgCarousel />
 			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
+			<span>Home</span>
 		</Container>
 	);
 };

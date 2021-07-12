@@ -15,9 +15,9 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 	return (
 		<Router>
 			<Header modalBox={modalBox} setModalBox={setModalBox} />
-			<Content style={{ paddingTop: "80px" }}>
+			<Content>
 				<Switch>
-					<Route exact path="/home">
+					<Route exact path="/">
 						<Home />
 					</Route>
 					<Route exact path="/ranking">
@@ -46,6 +46,4 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 
 export default AppRouter;
 
-const Content = styled.div`
-	margin-top: 170px;
-`;
+const Content = styled.div``;
