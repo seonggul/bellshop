@@ -45,6 +45,8 @@ const Navigation = ({ linkstyle }) => {
 export default Navigation;
 
 const Container = styled.div`
+	background-color: #ffffff;
+
 	width: 950px;
 	height: 50px;
 	font-size: 20px;

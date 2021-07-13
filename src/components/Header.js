@@ -20,7 +20,7 @@ const Header = ({ modalBox, setModalBox }) => {
 	return (
 		<Container>
 			<Auth>
-				<Link to="/auth" style={linkstyle}>
+				<Link to="/join" style={linkstyle}>
 					<span
 						style={{
 							color: "black",
@@ -30,14 +30,12 @@ const Header = ({ modalBox, setModalBox }) => {
 					</span>
 				</Link>
 				<EmptyLine>
-					<Link to="/auth" style={linkstyle}>
-						<span>로그인</span>
-					</Link>
+					<a onClick={() => setModalBox(true)}>로그인</a>
 				</EmptyLine>
-				<span>
+				<a>
 					고객센터
 					<FontAwesomeIcon icon={faCaretDown} />
-				</span>
+				</a>
 			</Auth>
 
 			<MainLogo>
@@ -78,6 +76,11 @@ const Auth = styled.div`
 	font-size: 15px;
 	padding-top: 3px;
 	padding-bottom: 5px;
+	a {
+		:hover {
+			cursor: pointer;
+		}
+	}
 `;
 
 const MainLogo = styled.div`

@@ -8,7 +8,9 @@ import New from "../routes/New";
 import Event from "../routes/Event";
 import Cart from "../routes/Cart";
 import Auth from "../routes/Auth";
+import Join from "../routes/Join";
 import HotDeal from "../routes/HotDeal";
+import Footer from "./Footer";
 import styled from "styled-components";
 
 const AppRouter = ({ modalBox, setModalBox }) => {
@@ -29,6 +31,9 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 					<Route exact path="/hotdeal">
 						<HotDeal />
 					</Route>
+					<Route exact path="/join">
+						<Join />
+					</Route>
 					<Route exact path="/event">
 						<Event />
 					</Route>
@@ -40,10 +45,14 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 					</Route>
 				</Switch>
 			</Content>
+			<Footer />
 		</Router>
 	);
 };
 
 export default AppRouter;
 
-const Content = styled.div``;
+const Content = styled.div`
+	margin-top: 30px;
+	background-color: #f7f7f7;
+`;

@@ -5,15 +5,18 @@ import img2 from "../img/slide2.jpg";
 import img3 from "../img/slide3.jpg";
 import img4 from "../img/slide4.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import {
 	faChevronCircleLeft,
 	faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { slideImg } from "../any.json";
 
 const ImgCarousel = () => {
 	const [cuurrentImg, setCurrentImg] = useState(0);
+	const [autoMove, setAutoMove] = useState(0);
 	const imgRef = useRef(null);
-	const TotalImg = 4;
+	const TotalImg = slideImg.length - 1;
 	const nextImg = () => {
 		if (cuurrentImg >= TotalImg) {
 			setCurrentImg(0);
@@ -29,31 +32,45 @@ const ImgCarousel = () => {
 		}
 	};
 
-	useEffect(() => {}, [cuurrentImg]);
+	useEffect(() => {
+		imgRef.current.style.transition = "all 0.5s ease-in-out";
+		imgRef.current.style.transform = `translateX(-${cuurrentImg}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
+	}, [cuurrentImg]);
+
 	return (
 		<Container>
-			<SliderContainer>
-				<ul ref={imgRef}>
-					<li data-index="">
-						<Img src={img1} alt="img1" />
+			<SliderContainer ref={imgRef} cuurrentImg={cuurrentImg}>
+				<ul>
+					<li>
+						<Link to="/new">
+							<Img src={img1} alt="img1" />
+						</Link>
 					</li>
 					<li data-index="">
-						<Img src={img2} alt="img2" />
+						<Link to="/new">
+							<Img src={img2} alt="img2" />
+						</Link>
 					</li>
 					<li data-index="">
-						<Img src={img3} alt="img3" />
+						<Link to="/new">
+							<Img src={img3} alt="img3" />
+						</Link>
 					</li>
 					<li data-index="">
-						<Img src={img4} alt="img4" />
+						<Link to="/new">
+							<Img src={img4} alt="img4" />
+						</Link>
 					</li>
 				</ul>
 			</SliderContainer>
-			<PrevButton onClick={prevImg}>
-				<FontAwesomeIcon icon={faChevronCircleLeft} />
-			</PrevButton>
-			<NextButton onClick={nextImg}>
-				<FontAwesomeIcon icon={faChevronCircleRight} />
-			</NextButton>
+			<ButtonContainer>
+				<Button onClick={prevImg}>
+					<FontAwesomeIcon icon={faChevronCircleLeft} />
+				</Button>
+				<Button onClick={nextImg}>
+					<FontAwesomeIcon icon={faChevronCircleRight} />
+				</Button>
+			</ButtonContainer>
 		</Container>
 	);
 };
@@ -64,6 +81,10 @@ const Container = styled.div`
 	width: 1920px;
 	height: 500px;
 	overflow: hidden;
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
 `;
 
 const SliderContainer = styled.div`
@@ -75,32 +96,32 @@ const SliderContainer = styled.div`
 		padding-left: 0px;
 		display: flex;
 		flex-wrap: nowrap;
-		transition-timing-function: ease-in-out;
-		transition-duration: 1s;
 
-		transform: translate3d(0px, 0px, 0px);
-		li {
-			:hover {
-				cursor: pointer;
-			}
-		}
+		//transform: ${(props) => `translate3d(-${props.cuurrentImg}00%,0px,0px)`};
 	}
 `;
 
-const PrevButton = styled.button`
-	all: unset;
-	z-index: 10;
+const ButtonContainer = styled.div`
 	position: absolute;
-	color: #636e72;
-	border: 1px solid coral;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 920px;
+	height: 10px;
+	z-index: 10;
 `;
 
-const NextButton = styled.button`
+const Button = styled.button`
 	all: unset;
-	z-index: 10;
-	position: absolute;
-	color: #636e72;
-	border: 1px solid coral;
+	color: #333;
+	font-size: 50px;
+	opacity: 0.65;
+	:focus {
+		cursor: pointer;
+	}
+	:hover {
+		opacity: 0.95;
+	}
 `;
 
 const Img = styled.img``;
