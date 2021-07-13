@@ -41,7 +41,7 @@ const Header = ({ modalBox, setModalBox }) => {
 			</Auth>
 
 			<MainLogo>
-				<Link to="/Home" style={linkstyle}>
+				<Link to="/" style={linkstyle}>
 					<img
 						src={logo}
 						style={{
@@ -62,7 +62,6 @@ const Header = ({ modalBox, setModalBox }) => {
 export default Header;
 
 const Container = styled.div`
-	position: absolute;
 	margin-top: 0px;
 	display: flex;
 	width: 100%;
