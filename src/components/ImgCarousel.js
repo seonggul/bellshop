@@ -28,7 +28,7 @@ const ImgCarousel = () => {
 		if (cuurrentImg === 0) {
 			setCurrentImg(TotalImg);
 		} else {
-			setCurrentImg(cuurrentImg - 1);
+			setCurrentImg(cuurrentImg);
 		}
 	};
 
@@ -43,22 +43,27 @@ const ImgCarousel = () => {
 				<ul>
 					<li>
 						<Link to="/new">
-							<Img src={img1} alt="img1" />
+							<Img src={slideImg[0].imgsrc} alt="img1" />
 						</Link>
 					</li>
 					<li data-index="">
 						<Link to="/new">
-							<Img src={img2} alt="img2" />
+							<Img src={slideImg[1].imgsrc} alt="img2" />
 						</Link>
 					</li>
 					<li data-index="">
 						<Link to="/new">
-							<Img src={img3} alt="img3" />
+							<Img src={slideImg[2].imgsrc} alt="img3" />
 						</Link>
 					</li>
 					<li data-index="">
 						<Link to="/new">
-							<Img src={img4} alt="img4" />
+							<Img src={slideImg[3].imgsrc} alt="img4" />
+						</Link>
+					</li>
+					<li data-index="">
+						<Link to="/new">
+							<Img src={slideImg[4].imgsrc} alt="img4" />
 						</Link>
 					</li>
 				</ul>

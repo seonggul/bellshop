@@ -1,8 +1,9 @@
 {
 	"slideImg": [
-		{ "id": 1, "imgsrc": "./src/img/slide1.jpg" },
-		{ "id": 2, "imgsrc": "./src/img/slide2.jpg" },
-		{ "id": 3, "imgsrc": "./src/img/slide3.jpg" },
-		{ "id": 4, "imgsrc": "./src/img/slide4.jpg" }
+		{ "id": 1, "imgsrc": "imgc/slide1.jpg" },
+		{ "id": 2, "imgsrc": "imgc/slide2.jpg" },
+		{ "id": 3, "imgsrc": "imgc/slide3.jpg" },
+		{ "id": 4, "imgsrc": "imgc/slide4.jpg" },
+		{ "id": 5, "imgsrc": "imgc/slide5.jpg" }
 	]
 }

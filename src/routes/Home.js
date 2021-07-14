@@ -1,24 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import HomeContent from "../components/HomeContent";
 import ImgCarousel from "../components/ImgCarousel";
 
 const Home = () => {
 	return (
 		<Container>
 			<ImgCarousel />
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
-			<span>Home</span>
+			<HomeContent />
 		</Container>
 	);
 };

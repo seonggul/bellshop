@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import AppRouter from "./Router";
 import styled from "styled-components";
-import SearchModal from "./SearchModal";
 
 const App = () => {
-	const [modalBox, setModalBox] = useState(false);
-
 	return (
-		<AppContainer modalBox={modalBox}>
-			{modalBox ? (
-				<SearchModal modalBox={modalBox} setModalBox={setModalBox} />
-			) : (
-				<></>
-			)}
-			<AppRouter modalBox={modalBox} setModalBox={setModalBox} />
+		<AppContainer>
+			<AppRouter />
 		</AppContainer>
 	);
 };

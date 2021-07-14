@@ -7,16 +7,16 @@ import Ranking from "../routes/Ranking";
 import New from "../routes/New";
 import Event from "../routes/Event";
 import Cart from "../routes/Cart";
-import Auth from "../routes/Auth";
+import Service from "../routes/Service";
 import Join from "../routes/Join";
 import HotDeal from "../routes/HotDeal";
 import Footer from "./Footer";
 import styled from "styled-components";
 
-const AppRouter = ({ modalBox, setModalBox }) => {
+const AppRouter = () => {
 	return (
 		<Router>
-			<Header modalBox={modalBox} setModalBox={setModalBox} />
+			<Header />
 			<Content>
 				<Switch>
 					<Route exact path="/">
@@ -40,9 +40,12 @@ const AppRouter = ({ modalBox, setModalBox }) => {
 					<Route exact path="/cart">
 						<Cart />
 					</Route>
-					<Route exact path="/auth">
-						<Auth />
+					<Route exact path="/service">
+						<Service />
 					</Route>
+					{/* <Route exact path="/auth">
+						<Auth />
+					</Route> */}
 				</Switch>
 			</Content>
 			<Footer />

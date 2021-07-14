@@ -1,22 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import {
-	faShoppingCart,
-	faBars,
-	faCaretDown,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useRef, useState } from "react";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import DropDown from "./NaviDropDown";
 import logo from "../img/logo_transparent.svg";
-
 import Navigation from "./Navigation";
+import LoginModal from "./LoginModal";
 
-const Header = ({ modalBox, setModalBox }) => {
+const Header = () => {
+	const [loginBox, setLoginBox] = useState(false);
+	const [windowWidth, setWindowWidth] = useState();
+	const loginRef = useRef(null);
+	const [loginPosition, setLoginPosition] = useState(null);
 	const linkstyle = {
 		color: "black",
 		textDecoration: "none",
 	};
+	const handleResize = () => {
+		setWindowWidth(window.innerWidth);
+	};
+	useEffect(() => {
+		window.addEventListener("resize", handleResize);
+		setLoginPosition(loginRef.current.offsetLeft - 100);
+		return () => {
+			window.addEventListener("resize", handleResize);
+		};
+	}, [windowWidth]);
+
 	return (
 		<Container>
 			<Auth>
@@ -30,13 +41,19 @@ const Header = ({ modalBox, setModalBox }) => {
 					</span>
 				</Link>
 				<EmptyLine>
-					<a onClick={() => setModalBox(true)}>로그인</a>
+					<a ref={loginRef} onClick={() => setLoginBox(!loginBox)}>
+						로그인
+					</a>
 				</EmptyLine>
-				<a>
+				<Link to="/service" style={linkstyle}>
 					고객센터
-					<FontAwesomeIcon icon={faCaretDown} />
-				</a>
+				</Link>
 			</Auth>
+			<LoginModal
+				loginBox={loginBox}
+				setLoginBox={setLoginBox}
+				loginPosition={loginPosition}
+			/>
 
 			<MainLogo>
 				<Link to="/" style={linkstyle}>
