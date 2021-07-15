@@ -1,0 +1,64 @@
+{
+	"bigCategory": [
+		{
+			"bId": 1,
+			"name": "닭가슴살",
+			"smallCategory": [
+				{ "sId": 1, "name": "전체" },
+				{ "sId": 2, "name": "스테이크" },
+				{ "sId": 3, "name": "슬라이스" },
+				{ "sId": 4, "name": "저염" },
+				{ "sId": 5, "name": "소시지" },
+				{ "sId": 6, "name": "스팀" }
+			]
+		},
+		{
+			"id": 1,
+			"name": "고구마",
+			"smallCategory": [
+				{ "sId": 1, "name": "전체" },
+				{ "sId": 2, "name": "스테이크" },
+				{ "sId": 3, "name": "슬라이스" },
+				{ "sId": 4, "name": "저염" },
+				{ "sId": 5, "name": "소시지" },
+				{ "sId": 6, "name": "스팀" }
+			]
+		},
+		{
+			"id": 1,
+			"name": "볶음밥",
+			"smallCategory": [
+				{ "sId": 1, "name": "전체" },
+				{ "sId": 2, "name": "스테이크" },
+				{ "sId": 3, "name": "슬라이스" },
+				{ "sId": 4, "name": "저염" },
+				{ "sId": 5, "name": "소시지" },
+				{ "sId": 6, "name": "스팀" }
+			]
+		},
+		{
+			"id": 1,
+			"name": "간편식",
+			"smallCategory": [
+				{ "sId": 1, "name": "전체" },
+				{ "sId": 2, "name": "스테이크" },
+				{ "sId": 3, "name": "슬라이스" },
+				{ "sId": 4, "name": "저염" },
+				{ "sId": 5, "name": "소시지" },
+				{ "sId": 6, "name": "스팀" }
+			]
+		},
+		{
+			"id": 1,
+			"name": "소고기",
+			"smallCategory": [
+				{ "sId": 1, "name": "전체" },
+				{ "sId": 2, "name": "스테이크" },
+				{ "sId": 3, "name": "슬라이스" },
+				{ "sId": 4, "name": "저염" },
+				{ "sId": 5, "name": "소시지" },
+				{ "sId": 6, "name": "스팀" }
+			]
+		}
+	]
+}

@@ -4,16 +4,20 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
+import DropDown from "./NaviDropDown";
 
 const Navigation = ({ linkstyle }) => {
 	return (
 		<Container>
 			<Category>
-				<FontAwesomeIcon
-					icon={faBars}
-					style={{ fontSize: "19px", marginRight: "5px" }}
-				/>
-				<span>전체 카테고리</span>
+				<span style={{ width: "150px" }}>
+					<FontAwesomeIcon
+						icon={faBars}
+						style={{ fontSize: "19px", marginRight: "5px" }}
+					/>
+					<span>전체 카테고리</span>
+				</span>
+				<DropDown />
 			</Category>
 			<Navi>
 				<NaviItem>
@@ -46,7 +50,6 @@ export default Navigation;
 
 const Container = styled.div`
 	background-color: #ffffff;
-
 	width: 950px;
 	height: 50px;
 	font-size: 20px;
@@ -59,20 +62,21 @@ const Container = styled.div`
 const Category = styled.div`
 	position: relative;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
 	width: 155px;
 	height: 50px;
 	:hover {
-		border-radius: 5px;
+		border-radius: 5px 5px 0px 0px;
 		cursor: pointer;
 		background-color: black;
 		color: white;
+		div {
+			display: block;
+		}
 	}
-	span {
-		width: 130px;
-	}
+
 	svg {
 		padding-left: 10px;
 	}

@@ -8,7 +8,7 @@ import logo from "../img/logo_transparent.svg";
 import Navigation from "./Navigation";
 import LoginModal from "./LoginModal";
 
-const Header = () => {
+const Header = ({ userLogin, setUserLogin }) => {
 	const [loginBox, setLoginBox] = useState(false);
 	const [windowWidth, setWindowWidth] = useState();
 	const loginRef = useRef(null);
@@ -21,29 +21,36 @@ const Header = () => {
 		setWindowWidth(window.innerWidth);
 	};
 	useEffect(() => {
-		window.addEventListener("resize", handleResize);
-		setLoginPosition(loginRef.current.offsetLeft - 100);
-		return () => {
+		if (userLogin === false) {
 			window.addEventListener("resize", handleResize);
-		};
+			setLoginPosition(loginRef.current.offsetLeft - 120);
+			return () => {
+				window.addEventListener("resize", handleResize);
+			};
+		}
 	}, [windowWidth]);
 
 	return (
 		<Container>
 			<Auth>
-				<Link to="/join" style={linkstyle}>
-					<span
-						style={{
-							color: "black",
-						}}
-					>
-						회원가입
-					</span>
-				</Link>
+				{userLogin ? (
+					<span onClick={() => setUserLogin(false)}>로그아웃</span>
+				) : (
+					<Link to="/join" style={linkstyle}>
+						<span>회원가입</span>
+					</Link>
+				)}
+
 				<EmptyLine>
-					<a ref={loginRef} onClick={() => setLoginBox(!loginBox)}>
-						로그인
-					</a>
+					{userLogin ? (
+						<Link to="/myinfo" style={linkstyle}>
+							<span>정보 수정</span>
+						</Link>
+					) : (
+						<a ref={loginRef} onClick={() => setLoginBox(!loginBox)}>
+							로그인
+						</a>
+					)}
 				</EmptyLine>
 				<Link to="/service" style={linkstyle}>
 					고객센터

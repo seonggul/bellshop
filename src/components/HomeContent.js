@@ -71,15 +71,16 @@ const HomeContent = () => {
 	};
 
 	const viewContent = () => {
-		content.product.map(() => {
-			return <div></div>;
+		content.product.map((a) => {
+			return <li></li>;
 		});
 	};
 	return (
 		<div>
 			<div>
 				<h2>{content.name}</h2>
-				{viewContent}
+				<ul>{viewContent}</ul>
+
 				<div>
 					<span>+ 상품더보기</span>
 				</div>

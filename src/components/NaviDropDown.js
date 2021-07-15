@@ -46,13 +46,19 @@ const CommunityDropDown = () => {
 	return (
 		<>
 			<li>
-				<span>공지사항</span>
+				<span>신상품</span>
 			</li>
 			<li>
-				<span>QnA</span>
+				<span>닭가슴살</span>
 			</li>
 			<li>
-				<span>Review</span>
+				<span>간편식</span>
+			</li>
+			<li>
+				<span>음료 프로틴</span>
+			</li>
+			<li>
+				<span>수산 해산</span>
 			</li>
 		</>
 	);
@@ -69,19 +75,24 @@ const DropDown = ({ drop }) => {
 export default DropDown;
 
 const Container = styled.div`
-	font-family: "Roboto";
 	position: absolute;
-	margin-top: 200px;
+	margin-top: 250px;
+	display: none;
+	color: black;
+	font-family: "Roboto";
 	z-index: 998;
-	display: block;
-	height: 150px;
+	height: 200px;
 	width: 100%;
 	background-color: white;
+	border: 1px solid #000000;
+	border-radius: 5px;
 	ul {
 		padding-left: 0px;
 		list-style: none;
 		li {
-			padding-top: 5px;
+			:hover {
+				background-color: #a4b0be;
+			}
 		}
 	}
 `;

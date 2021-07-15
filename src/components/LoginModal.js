@@ -51,11 +51,12 @@ const ModalContainer = styled.div`
 	left: ${(props) => `${props.loginPosition}px`};
 	top: 30px;
 	align-items: center;
-	width: 240px;
-	height: 240px;
+	width: 280px;
+	height: 220px;
 	flex-direction: column;
-	background-color: white;
-	border: 1px solid;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
 	z-index: 999;
 `;
 
@@ -70,15 +71,15 @@ const LoginForm = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	width: 220px;
-	height: 220px;
+	width: 260px;
+	height: 200px;
 `;
 
 const InputContainer = styled.form`
 	padding-left: 0px;
 	display: flex;
 	flex-direction: row;
-	width: 220px;
+	width: 260px;
 	justify-content: center;
 	align-items: center;
 	font-family: "Jomhuria";
@@ -87,13 +88,13 @@ const InputContainer = styled.form`
 
 const Input = styled.input`
 	font-size: 14px;
-	width: 153px;
+	width: 160px;
 	height: 36px;
 	border: 1px solid #cccccc;
-	border-radius: 2px;
+	border-radius: 5px;
 `;
 const LoginButton = styled.button`
-	width: 80px;
+	width: 100px;
 	height: 80px;
 	color: #ffffff;
 	background-color: #ffcb3c;

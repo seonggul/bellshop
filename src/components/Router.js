@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Header";
@@ -10,13 +10,15 @@ import Cart from "../routes/Cart";
 import Service from "../routes/Service";
 import Join from "../routes/Join";
 import HotDeal from "../routes/HotDeal";
+import MyInfo from "../routes/MyInfo";
 import Footer from "./Footer";
 import styled from "styled-components";
 
 const AppRouter = () => {
+	const [userLogin, setUserLogin] = useState(false);
 	return (
 		<Router>
-			<Header />
+			<Header userLogin={userLogin} setUserLogin={setUserLogin} />
 			<Content>
 				<Switch>
 					<Route exact path="/">
@@ -42,6 +44,9 @@ const AppRouter = () => {
 					</Route>
 					<Route exact path="/service">
 						<Service />
+					</Route>
+					<Route exact path="/myinfo">
+						<MyInfo />
 					</Route>
 					{/* <Route exact path="/auth">
 						<Auth />
