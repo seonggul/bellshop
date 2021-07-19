@@ -34,7 +34,7 @@ const AppRouter = () => {
 						<HotDeal />
 					</Route>
 					<Route exact path="/join">
-						<Join />
+						<Join setUserLogin={setUserLogin} />
 					</Route>
 					<Route exact path="/event">
 						<Event />

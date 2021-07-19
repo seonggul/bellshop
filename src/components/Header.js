@@ -2,11 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import DropDown from "./NaviDropDown";
 import logo from "../img/logo_transparent.svg";
 import Navigation from "./Navigation";
 import LoginModal from "./LoginModal";
+import { authService } from "../fBase";
 
 const Header = ({ userLogin, setUserLogin }) => {
 	const [loginBox, setLoginBox] = useState(false);
@@ -16,6 +17,13 @@ const Header = ({ userLogin, setUserLogin }) => {
 	const linkstyle = {
 		color: "black",
 		textDecoration: "none",
+	};
+	const history = useHistory();
+	const onLogOutClick = () => {
+		setUserLogin(false);
+		authService.signOut();
+		history.push("/");
+		window.alert("로그아웃하였습니다.");
 	};
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
@@ -34,7 +42,7 @@ const Header = ({ userLogin, setUserLogin }) => {
 		<Container>
 			<Auth>
 				{userLogin ? (
-					<span onClick={() => setUserLogin(false)}>로그아웃</span>
+					<LogOutSpan onClick={onLogOutClick}>로그아웃</LogOutSpan>
 				) : (
 					<Link to="/join" style={linkstyle}>
 						<span>회원가입</span>
@@ -129,5 +137,11 @@ const EmptyLine = styled.div`
 		padding-left: 3px;
 		padding-right: 3px;
 		content: "|";
+	}
+`;
+
+const LogOutSpan = styled.span`
+	:hover {
+		cursor: pointer;
 	}
 `;

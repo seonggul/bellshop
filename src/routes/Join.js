@@ -1,55 +1,198 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-
-const Join = () => {
+import { useHistory } from "react-router-dom";
+import { authService, dbService } from "../fBase";
+const Join = ({ setUserLogin }) => {
 	//male이 true일 때 남자 선택, false일 때 여자 선택
 	const [male, setMale] = useState(null);
-	useEffect(() => {
-		console.log(male);
-	}, []);
+	const [email, setEmail] = useState("");
+	const [pw, setPw] = useState("");
+	const [pwConfirm, setPwConfirm] = useState("");
+	const [name, setName] = useState("");
+	const [phoneNumber, setPhoneNumbe] = useState("");
+	const [gender, setGender] = useState("");
+	const history = useHistory();
+
+	const onChange = (event) => {
+		const {
+			target: { name, value },
+		} = event;
+		console.log(value);
+		if (name === "email") {
+			setEmail(value);
+		} else if (name === "pw") {
+			setPw(value);
+		} else if (name === "name") {
+			setName(value);
+		} else if (name === "phoneNumber") {
+			setPhoneNumbe(value);
+		} else if (name === "pwConfirm") {
+			setPwConfirm(value);
+		}
+	};
+
+	const duplicateConfirm = async (event) => {
+		event.preventDefault();
+		let data = [];
+		let idData = await dbService.collection("users").get();
+		await idData.docs.map((a) => {
+			data.push(a.id);
+		});
+		console.log(data);
+		if (data.indexOf(email) === -1) {
+			window.alert("가입가능한 이메일입니다.");
+			data = null;
+		} else {
+			window.alert("이미 존재하는 이메일입니다.");
+			data = null;
+		}
+		console.log(data);
+	};
+
+	const onSubmit = async (event) => {
+		event.preventDefault();
+		if (male === true) {
+			setGender("male");
+		} else if (male === false) {
+			setGender("female");
+		}
+		if (pw !== pwConfirm) {
+			window.alert("입력 비밀번호가 다릅니다.");
+			setPwConfirm("");
+			setPw("");
+			event.preventDefault();
+		}
+		try {
+			let data;
+			let userId;
+
+			data = await authService.createUserWithEmailAndPassword(email, pw);
+			setUserLogin(true);
+			userId = data.user.uid;
+			console.log(userId);
+			let users = await {
+				uid: data.user.uid,
+			};
+			let userInfo = await {
+				uid: data.user.uid,
+				id: email,
+				name,
+				phoneNumber,
+				gender,
+			};
+			try {
+				console.log("정보넣기시작");
+				await dbService
+					.collection(userId)
+					.doc("userInfo")
+					.set(userInfo)
+					.then(() => {
+						console.log("정보넣기성공");
+						setPwConfirm("");
+						setPhoneNumbe("");
+						setEmail("");
+						setPw("");
+						setName("");
+					});
+				await dbService
+					.collection("users")
+					.doc(email)
+					.set(users)
+					.then(() => {
+						console.log("users 정보넣기성공");
+						window.alert("회원가입성공! 로그인 되었습니다.");
+					});
+				history.push("/");
+			} catch (error) {
+				console.log("정보넣기실패" + error.messages);
+			}
+		} catch (error) {
+			window.alert("회원가입 실패! 이메일 형식을 확인 해주세요.");
+			console.log(error.messages);
+		}
+	};
+
 	return (
 		<Container>
 			<JoinBg>
-				<JoinInput>
+				<JoinInput onSubmit={onSubmit}>
 					<h2>회원가입</h2>
 					<InputItem>
 						<span>아이디</span>
-						<input></input>
-						<DuplicateButton>중복확인</DuplicateButton>
+						<input
+							value={email}
+							type="email"
+							name="email"
+							placeholder="Email 형식으로 작성하세요"
+							onChange={onChange}
+							required
+						></input>
+						<DuplicateButton onClick={duplicateConfirm}>
+							중복확인
+						</DuplicateButton>
 					</InputItem>
 					<InputItem>
 						<span>비밀번호</span>
-						<input></input>
+						<input
+							value={pw}
+							name="pw"
+							type="password"
+							placeholder="비밀번호를 입력하세요"
+							onChange={onChange}
+							required
+						></input>
 					</InputItem>
 					<InputItem>
 						<span>비밀번호 확인</span>
-						<input></input>
+						<input
+							value={pwConfirm}
+							type="password"
+							name="pwConfirm"
+							placeholder="비밀번호를 확인하세요"
+							onChange={onChange}
+							required
+						></input>
 					</InputItem>
 					<InputItem>
 						<span>이름</span>
-						<input></input>
+						<input
+							value={name}
+							type="text"
+							name="name"
+							onChange={onChange}
+							required
+						></input>
 					</InputItem>
 					<InputItem>
 						<span>휴대폰번호</span>
-						<input></input>
+						<input
+							value={phoneNumber}
+							type="number"
+							name="phoneNumber"
+							placeholder=" - 를 뺴고 작성해주세요"
+							onChange={onChange}
+							required
+						></input>
 					</InputItem>
 					<InputItem>
 						<span>성별</span>
 						<MaleButton
+							type="button"
 							male={male}
 							onClick={() => setMale(true)}
 							style={{ marginLeft: "5px" }}
 						>
 							남
 						</MaleButton>
-						<FemaleButton male={male} onClick={() => setMale(false)}>
+						<FemaleButton
+							type="button"
+							male={male}
+							onClick={() => setMale(false)}
+						>
 							여
 						</FemaleButton>
 					</InputItem>
-					<InputItem>
-						<span>이메일</span>
-						<input></input>
-					</InputItem>
+
 					<JoinButton>회원가입</JoinButton>
 				</JoinInput>
 			</JoinBg>
@@ -74,9 +217,9 @@ const JoinBg = styled.div`
 	border: 1px solid #dddddd;
 `;
 
-const JoinInput = styled.div`
+const JoinInput = styled.form`
 	display: flex;
-	height: 700px;
+	height: 750px;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
@@ -91,12 +234,17 @@ const InputItem = styled.div`
 		width: 100px;
 	}
 	input {
+		padding-left: 10px;
 		margin-left: 5px;
 		font-size: 20px;
 		width: 400px;
 		height: 50px;
 		border: 1px solid #cccccc;
 		border-radius: 2px;
+		::-webkit-outer-spin-button,
+		::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
 	}
 `;
 
@@ -109,15 +257,22 @@ const JoinButton = styled.button`
 	background-color: #ff6001;
 	border: 1px solid #ff6001;
 	border-radius: 5px;
+	:hover {
+		cursor: pointer;
+	}
 `;
 
 const DuplicateButton = styled.button`
+	width: 70px;
 	color: #ffffff;
 	background-color: #808080;
 	margin-left: 15px;
 	height: 50px;
 	border: 1px solid #808080;
 	border-radius: 3px;
+	:hover {
+		cursor: pointer;
+	}
 `;
 
 const MaleButton = styled.button`

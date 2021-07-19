@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { authService } from "../fBase";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const LoginModal = ({ loginBox, setLoginBox, loginPosition }) => {
-	console.log(loginPosition);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	return (
 		<ModalContainer loginBox={loginBox} loginPosition={loginPosition}>
 			<LoginForm>
-				<CloseBtn
-					onClick={() => {
-						return setLoginBox(false);
+				<div
+					style={{
+						width: "240px",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
+						alignItems: "center",
 					}}
 				>
-					<FontAwesomeIcon icon={faTimes} />
-				</CloseBtn>
-
-				<h4>로그인</h4>
+					<h2>로그인</h2>
+					<CloseBtn
+						onClick={() => {
+							return setLoginBox(false);
+						}}
+					>
+						<FontAwesomeIcon icon={faTimes} />
+					</CloseBtn>
+				</div>
 
 				<InputContainer>
 					<InputItem>
@@ -61,8 +72,7 @@ const ModalContainer = styled.div`
 `;
 
 const CloseBtn = styled.div`
-	padding-top: 5px;
-	font-size: 13px;
+	font-size: 20px;
 	cursor: pointer;
 `;
 
