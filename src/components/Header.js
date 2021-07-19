@@ -65,6 +65,7 @@ const Header = ({ userLogin, setUserLogin }) => {
 				</Link>
 			</Auth>
 			<LoginModal
+				setUserLogin={setUserLogin}
 				loginBox={loginBox}
 				setLoginBox={setLoginBox}
 				loginPosition={loginPosition}

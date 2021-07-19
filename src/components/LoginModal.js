@@ -1,16 +1,45 @@
 import React, { useState } from "react";
 import { authService } from "../fBase";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const LoginModal = ({ loginBox, setLoginBox, loginPosition }) => {
+const LoginModal = ({ loginBox, setLoginBox, loginPosition, setUserLogin }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const history = useHistory();
+
+	const onChange = (event) => {
+		const {
+			target: { name, value },
+		} = event;
+		console.log(value);
+		if (name === "email") {
+			setEmail(value);
+		} else if (name === "password") {
+			setPassword(value);
+		}
+	};
+
+	const onSubmit = async (event) => {
+		event.preventDefault();
+		try {
+			await authService.signInWithEmailAndPassword(email, password);
+			window.alert("로그인 성공!");
+			history.push("/");
+			setUserLogin(true);
+			setLoginBox(false);
+			setEmail("");
+			setPassword("");
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<ModalContainer loginBox={loginBox} loginPosition={loginPosition}>
-			<LoginForm>
+			<LoginForm onSubmit={onSubmit}>
 				<div
 					style={{
 						width: "240px",
@@ -32,8 +61,22 @@ const LoginModal = ({ loginBox, setLoginBox, loginPosition }) => {
 
 				<InputContainer>
 					<InputItem>
-						<Input type="text" placeholder="이메일을 입력하세요" />
-						<Input type="password" placeholder="비밀번호" />
+						<Input
+							value={email}
+							name="email"
+							type="email"
+							onChange={onChange}
+							placeholder="이메일을 입력하세요"
+							required
+						/>
+						<Input
+							value={password}
+							name="password"
+							type="password"
+							onChange={onChange}
+							placeholder="비밀번호를 입력하세요"
+							required
+						/>
 					</InputItem>
 					<LoginButton>로그인</LoginButton>
 				</InputContainer>
