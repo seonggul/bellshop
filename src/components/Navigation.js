@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchForm from "../components/SearchForm";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -7,17 +7,26 @@ import { faShoppingCart, faBars } from "@fortawesome/free-solid-svg-icons";
 import DropDown from "./NaviDropDown";
 
 const Navigation = ({ linkstyle }) => {
+	const [hover, setHover] = useState(false);
+
 	return (
 		<Container>
-			<Category>
-				<span style={{ width: "150px" }}>
+			<Category
+				onMouseEnter={(event) => {
+					setHover(true);
+				}}
+				onMouseLeave={(event) => {
+					setHover(false);
+				}}
+			>
+				<span style={{ width: "170px" }}>
 					<FontAwesomeIcon
 						icon={faBars}
-						style={{ fontSize: "19px", marginRight: "5px" }}
+						style={{ fontSize: "19px", marginRight: "10px" }}
 					/>
 					<span>전체 카테고리</span>
 				</span>
-				<DropDown />
+				<DropDown hover={hover} />
 			</Category>
 			<Navi>
 				<NaviItem>
@@ -50,8 +59,8 @@ export default Navigation;
 
 const Container = styled.div`
 	background-color: #ffffff;
-	width: 950px;
-	height: 50px;
+	width: 990px;
+	height: 70px;
 	font-size: 20px;
 	font-family: "Noto Sans KR";
 	display: flex;
@@ -65,20 +74,16 @@ const Category = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-	width: 155px;
-	height: 50px;
+	width: 180px;
+	height: 70px;
 	:hover {
 		border-radius: 5px 5px 0px 0px;
 		cursor: pointer;
 		background-color: black;
 		color: white;
-		div {
-			display: block;
-		}
 	}
-
 	svg {
-		padding-left: 10px;
+		padding-left: 15px;
 	}
 `;
 
@@ -103,12 +108,6 @@ const Navi = styled.div`
 	justify-content: space-between;
 `;
 
-const Menu = styled.li`
-	position: relative;
-	display: flex;
-	justify-content: space-around;
-	width: auto;
-`;
 const InputBox = styled.div`
 	position: relative;
 	display: inline-block;

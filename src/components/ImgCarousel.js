@@ -4,69 +4,97 @@ import img1 from "../img/slide1.jpg";
 import img2 from "../img/slide2.jpg";
 import img3 from "../img/slide3.jpg";
 import img4 from "../img/slide4.jpg";
+import img5 from "../img/slide5.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
 	faChevronCircleLeft,
 	faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { slideImg } from "../any.json";
 
 const ImgCarousel = () => {
-	const [cuurrentImg, setCurrentImg] = useState(0);
-	const [autoMove, setAutoMove] = useState(0);
-	const imgRef = useRef(null);
-	const TotalImg = slideImg.length - 1;
+	const imgArray = [img1, img2, img3, img4, img5];
+	const ulRef = useRef(null);
+	const liRef = useRef(null);
+	const slideLen = imgArray.length;
+	const slideWidth = 1920; // slide width
+	const slideSpeed = 300; // slide speed
+	const startNum = 0; // initial slide index (0 ~ 4)
+
+	let curIndex = startNum;
+	let curSlide;
+
 	const nextImg = () => {
-		if (cuurrentImg >= TotalImg) {
-			setCurrentImg(0);
-		} else {
-			setCurrentImg(cuurrentImg + 1);
+		if (curIndex <= slideLen - 1) {
+			ulRef.current.style.transition = slideSpeed + "ms";
+			ulRef.current.style.transform =
+				"translate3d(-" + slideWidth * (curIndex + 2) + "px, 0px, 0px)";
 		}
+		if (curIndex === slideLen - 1) {
+			setTimeout(function () {
+				ulRef.current.style.transition = "0ms";
+				ulRef.current.style.transform =
+					"translate3d(-" + slideWidth + "px, 0px, 0px)";
+			}, slideSpeed);
+			curIndex = -1;
+		}
+		curSlide.classList.remove("slide_active");
+
+		curSlide = ulRef.current.children[++curIndex];
+		curSlide.classList.add("slide_active");
 	};
+
 	const prevImg = () => {
-		if (cuurrentImg === 0) {
-			setCurrentImg(TotalImg);
-		} else {
-			setCurrentImg(cuurrentImg);
+		if (curIndex >= 0) {
+			ulRef.current.style.transition = slideSpeed + "ms";
+			ulRef.current.style.transform =
+				"translate3d(-" + slideWidth * curIndex + "px, 0px, 0px)";
 		}
+		if (curIndex === 0) {
+			setTimeout(function () {
+				ulRef.current.style.transition = "0ms";
+				ulRef.current.style.transform =
+					"translate3d(-" + slideWidth * slideLen + "px, 0px, 0px)";
+			}, slideSpeed);
+			curIndex = slideLen;
+		}
+		curSlide.classList.remove("slide_active");
+		curSlide = ulRef.current.children[--curIndex];
+		curSlide.classList.add("slide_active");
+	};
+
+	const imgSlider = () => {
+		let firstChild = ulRef.current.firstElementChild;
+		let lastChild = ulRef.current.lastElementChild;
+		let clonedFirst = firstChild.cloneNode(true);
+		let clonedLast = lastChild.cloneNode(true);
+		ulRef.current.appendChild(clonedFirst);
+		ulRef.current.insertBefore(clonedLast, ulRef.current.firstElementChild);
+		ulRef.current.style.transform =
+			"translate3d(-" + slideWidth * (startNum + 1) + "px, 0px, 0px)";
+		curSlide = liRef.current; // current slide dom
+
+		curSlide.classList.add("slide_active");
 	};
 
 	useEffect(() => {
-		imgRef.current.style.transition = "all 0.5s ease-in-out";
-		imgRef.current.style.transform = `translateX(-${cuurrentImg}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
-	}, [cuurrentImg]);
+		imgSlider();
+	}, []);
+
+	const carousel = imgArray.map((a, index) => {
+		return (
+			<li ref={liRef} alt={a} id={index}>
+				<Link to="/new">
+					<Img src={a} />
+				</Link>
+			</li>
+		);
+	});
 
 	return (
 		<Container>
-			<SliderContainer ref={imgRef} cuurrentImg={cuurrentImg}>
-				<ul>
-					<li>
-						<Link to="/new">
-							<Img src={slideImg[0].imgsrc} alt="img1" />
-						</Link>
-					</li>
-					<li data-index="">
-						<Link to="/new">
-							<Img src={slideImg[1].imgsrc} alt="img2" />
-						</Link>
-					</li>
-					<li data-index="">
-						<Link to="/new">
-							<Img src={slideImg[2].imgsrc} alt="img3" />
-						</Link>
-					</li>
-					<li data-index="">
-						<Link to="/new">
-							<Img src={slideImg[3].imgsrc} alt="img4" />
-						</Link>
-					</li>
-					<li data-index="">
-						<Link to="/new">
-							<Img src={slideImg[4].imgsrc} alt="img4" />
-						</Link>
-					</li>
-				</ul>
+			<SliderContainer>
+				<ul ref={ulRef}>{carousel}</ul>
 			</SliderContainer>
 			<ButtonContainer>
 				<Button onClick={prevImg}>

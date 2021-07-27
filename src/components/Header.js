@@ -76,16 +76,14 @@ const Header = ({ userLogin, setUserLogin }) => {
 					<img
 						src={logo}
 						style={{
-							width: "200px",
-							height: "140px",
+							width: "240px",
+							height: "160px",
 						}}
 						alt="logo"
 					/>
 				</Link>
 			</MainLogo>
 			<Navigation linkstyle={linkstyle} />
-
-			{/* <DropDown drop={drop} /> */}
 		</Container>
 	);
 };
@@ -96,10 +94,12 @@ const Container = styled.div`
 	margin-top: 0px;
 	display: flex;
 	width: 100%;
+	height: auto;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 	z-index: 998;
+	box-shadow: 1px 1px #e8e8e8;
 `;
 
 const Auth = styled.div`

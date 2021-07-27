@@ -61,6 +61,5 @@ const AppRouter = () => {
 export default AppRouter;
 
 const Content = styled.div`
-	margin-top: 30px;
 	background-color: #f7f7f7;
 `;

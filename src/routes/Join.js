@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { authService, dbService } from "../fBase";
@@ -37,6 +37,7 @@ const Join = ({ setUserLogin }) => {
 		let idData = await dbService.collection("users").get();
 		await idData.docs.map((a) => {
 			data.push(a.id);
+			return 0;
 		});
 		console.log(data);
 		if (data.indexOf(email) === -1) {
