@@ -16,10 +16,17 @@ import styled from "styled-components";
 
 const AppRouter = () => {
 	const [userLogin, setUserLogin] = useState(false);
+	const [fixedHeader, setFixedHeader] = useState(false);
+
 	return (
 		<Router>
-			<Header userLogin={userLogin} setUserLogin={setUserLogin} />
-			<Content>
+			<Header
+				userLogin={userLogin}
+				setUserLogin={setUserLogin}
+				fixedHeader={fixedHeader}
+				setFixedHeader={setFixedHeader}
+			/>
+			<Content fixedHeader={fixedHeader}>
 				<Switch>
 					<Route exact path="/">
 						<Home />
@@ -62,4 +69,5 @@ export default AppRouter;
 
 const Content = styled.div`
 	background-color: #f7f7f7;
+	margin-top: ${(props) => (props.fixedHeader ? "71px" : "0")};
 `;

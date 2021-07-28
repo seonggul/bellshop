@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import chicken from "../img/ico_chicken.png";
 import lunchbox from "../img/ico_lunchbox.png";
@@ -6,7 +6,6 @@ import meat from "../img/ico_meat.png";
 import drink from "../img/ico_drink.png";
 import fish from "../img/ico_fish.png";
 import hmr from "../img/ico_hmr.png";
-import DrawerRight from "./DrawerRight";
 
 const DropDown = ({ hover }) => {
 	const [itemNum, setItemNum] = useState(0);

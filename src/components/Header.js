@@ -1,17 +1,14 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import DropDown from "./NaviDropDown";
 import logo from "../img/logo_transparent.svg";
 import Navigation from "./Navigation";
 import LoginModal from "./LoginModal";
 import { authService } from "../fBase";
 
-const Header = ({ userLogin, setUserLogin }) => {
+const Header = ({ userLogin, setUserLogin, fixedHeader, setFixedHeader }) => {
 	const [loginBox, setLoginBox] = useState(false);
-	const [windowWidth, setWindowWidth] = useState();
+	const [windowWidth, setWindowWidth] = useState(null);
 	const loginRef = useRef(null);
 	const [loginPosition, setLoginPosition] = useState(null);
 	const linkstyle = {
@@ -28,15 +25,16 @@ const Header = ({ userLogin, setUserLogin }) => {
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
 	};
+
 	useEffect(() => {
 		if (userLogin === false) {
 			window.addEventListener("resize", handleResize);
 			setLoginPosition(loginRef.current.offsetLeft - 120);
-			return () => {
-				window.addEventListener("resize", handleResize);
-			};
 		}
-	}, [windowWidth]);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, [windowWidth, userLogin]);
 
 	return (
 		<Container>
@@ -83,7 +81,11 @@ const Header = ({ userLogin, setUserLogin }) => {
 					/>
 				</Link>
 			</MainLogo>
-			<Navigation linkstyle={linkstyle} />
+			<Navigation
+				linkstyle={linkstyle}
+				fixedHeader={fixedHeader}
+				setFixedHeader={setFixedHeader}
+			/>
 		</Container>
 	);
 };
@@ -94,7 +96,6 @@ const Container = styled.div`
 	margin-top: 0px;
 	display: flex;
 	width: 100%;
-	height: auto;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
