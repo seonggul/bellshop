@@ -22,26 +22,28 @@ const ImgCarousel = () => {
 	const startNum = 0; // initial slide index (0 ~ 4)
 
 	let curIndex = startNum;
-	let curSlide;
+	let curSlide = null;
 
 	const nextImg = () => {
-		if (curIndex <= slideLen - 1) {
+		console.log(curIndex);
+		if (curIndex <= 4) {
 			ulRef.current.style.transition = slideSpeed + "ms";
 			ulRef.current.style.transform =
 				"translate3d(-" + slideWidth * (curIndex + 2) + "px, 0px, 0px)";
 		}
-		if (curIndex === slideLen - 1) {
-			setTimeout(function () {
+		if (curIndex === 4) {
+			setTimeout(() => {
 				ulRef.current.style.transition = "0ms";
 				ulRef.current.style.transform =
 					"translate3d(-" + slideWidth + "px, 0px, 0px)";
 			}, slideSpeed);
 			curIndex = -1;
 		}
-		curSlide.classList.remove("slide_active");
+		curSlide && curSlide.classList.remove("slide_active");
 
 		curSlide = ulRef.current.children[++curIndex];
-		curSlide.classList.add("slide_active");
+
+		curSlide && curSlide.classList.add("slide_active");
 	};
 
 	const prevImg = () => {
@@ -58,28 +60,32 @@ const ImgCarousel = () => {
 			}, slideSpeed);
 			curIndex = slideLen;
 		}
-		curSlide.classList.remove("slide_active");
+		curSlide && curSlide.classList.remove("slide_active");
 		curSlide = ulRef.current.children[--curIndex];
-		curSlide.classList.add("slide_active");
+		curSlide && curSlide.classList.add("slide_active");
 	};
 
-	const imgSlider = () => {
+	const imgSlider = async () => {
+		ulRef.current.style.width = slideWidth * (slideLen + 2) + "px";
 		let firstChild = ulRef.current.firstElementChild;
 		let lastChild = ulRef.current.lastElementChild;
 		let clonedFirst = firstChild.cloneNode(true);
 		let clonedLast = lastChild.cloneNode(true);
-		ulRef.current.appendChild(clonedFirst);
-		ulRef.current.insertBefore(clonedLast, ulRef.current.firstElementChild);
+		await ulRef.current.appendChild(clonedFirst);
+		await ulRef.current.insertBefore(
+			clonedLast,
+			ulRef.current.firstElementChild
+		);
 		ulRef.current.style.transform =
-			"translate3d(-" + slideWidth * (startNum + 1) + "px, 0px, 0px)";
-		curSlide = liRef.current; // current slide dom
+			"translate3d(-" + slideWidth * (curIndex + 1) + "px, 0px, 0px)";
 
-		curSlide.classList.add("slide_active");
+		curSlide = await ulRef.current.children[1]; // current slide dom
+		await curSlide.classList.add("slide_active");
 	};
 
 	useEffect(() => {
 		imgSlider();
-	}, []);
+	}, [startNum]);
 
 	const carousel = imgArray.map((a, index) => {
 		return (
@@ -129,8 +135,6 @@ const SliderContainer = styled.div`
 		padding-left: 0px;
 		display: flex;
 		flex-wrap: nowrap;
-
-		//transform: ${(props) => `translate3d(-${props.cuurrentImg}00%,0px,0px)`};
 	}
 `;
 
@@ -144,7 +148,7 @@ const ButtonContainer = styled.div`
 	z-index: 10;
 `;
 
-const Button = styled.button`
+const Button = styled.div`
 	all: unset;
 	color: #333;
 	font-size: 50px;

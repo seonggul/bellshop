@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AppRouter from "./Router";
 import styled from "styled-components";
-import { fbInstance, authService } from "../fBase";
+import { fbInstance } from "../fBase";
+import UserStore from "./Store";
 
 const App = () => {
-	/* const [initial, setInitial] = useState(false);
-	const [userObj, setUserObj] = useState(null); */
-
-	useEffect(() => {
-		console.log(fbInstance);
-
-		/* authService.onAuthStateChanged((user) => {
-			if (user) {
-				setUserObj({
-					displayName: user.displayName,
-					uid: user.uid,
-					updateProfile: (args) => user.updateProfile(args),
-				});
-			} else {
-				setUserObj(null);
-			}
-			setInitial(true);
-		}); */
-	}, []);
+	console.log(fbInstance);
 	return (
-		<AppContainer>
-			<AppRouter /* userObj={userObj} initial={initial} */ />
-		</AppContainer>
+		<UserStore>
+			<AppContainer>
+				<AppRouter />
+			</AppContainer>
+		</UserStore>
 	);
 };
 
@@ -34,6 +19,7 @@ export default App;
 
 const AppContainer = styled.div`
 	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: center;
 	flex-direction: column;

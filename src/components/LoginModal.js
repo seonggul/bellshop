@@ -15,7 +15,7 @@ const LoginModal = ({ loginBox, setLoginBox, loginPosition, setUserLogin }) => {
 		const {
 			target: { name, value },
 		} = event;
-		console.log(value);
+
 		if (name === "email") {
 			setEmail(value);
 		} else if (name === "password") {
@@ -26,7 +26,7 @@ const LoginModal = ({ loginBox, setLoginBox, loginPosition, setUserLogin }) => {
 	const onSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			await authService.signInWithEmailAndPassword(email, password);
+			authService.signInWithEmailAndPassword(email, password);
 			window.alert("로그인 성공!");
 			history.push("/");
 			setUserLogin(true);

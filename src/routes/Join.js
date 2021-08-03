@@ -10,7 +10,7 @@ const Join = ({ setUserLogin }) => {
 	const [pwConfirm, setPwConfirm] = useState("");
 	const [name, setName] = useState("");
 	const [phoneNumber, setPhoneNumbe] = useState("");
-	const [gender, setGender] = useState("");
+	const [seller, setSeller] = useState(null);
 	const history = useHistory();
 
 	const onChange = (event) => {
@@ -52,11 +52,7 @@ const Join = ({ setUserLogin }) => {
 
 	const onSubmit = async (event) => {
 		event.preventDefault();
-		if (male === true) {
-			setGender("male");
-		} else if (male === false) {
-			setGender("female");
-		}
+
 		if (pw !== pwConfirm) {
 			window.alert("입력 비밀번호가 다릅니다.");
 			setPwConfirm("");
@@ -79,7 +75,8 @@ const Join = ({ setUserLogin }) => {
 				id: email,
 				name,
 				phoneNumber,
-				gender,
+				gender: male,
+				seller,
 			};
 			try {
 				console.log("정보넣기시작");
@@ -94,6 +91,8 @@ const Join = ({ setUserLogin }) => {
 						setEmail("");
 						setPw("");
 						setName("");
+						setMale(null);
+						setSeller(null);
 					});
 				await dbService
 					.collection("users")
@@ -192,6 +191,24 @@ const Join = ({ setUserLogin }) => {
 						>
 							여
 						</FemaleButton>
+					</InputItem>
+					<InputItem>
+						<span>판매자</span>
+						<TrueButton
+							type="button"
+							seller={seller}
+							onClick={() => setSeller(true)}
+							style={{ marginLeft: "5px" }}
+						>
+							Yes
+						</TrueButton>
+						<FalseButton
+							type="button"
+							seller={seller}
+							onClick={() => setSeller(false)}
+						>
+							No
+						</FalseButton>
 					</InputItem>
 
 					<JoinButton>회원가입</JoinButton>
@@ -297,6 +314,7 @@ const MaleButton = styled.button`
 	border-radius: 2px;
 	font-size: 20px;
 `;
+
 const FemaleButton = styled.button`
 	width: 100px;
 	height: 40px;
@@ -313,6 +331,49 @@ const FemaleButton = styled.button`
 			return "1px solid #cccccc";
 		} else {
 			return props.male ? "1px solid #cccccc" : "1px solid #ff6001";
+		}
+	}};
+	border-radius: 2px;
+	font-size: 20px;
+`;
+
+const TrueButton = styled.button`
+	width: 100px;
+	height: 40px;
+	color: ${(props) => {
+		if (props.seller === null) {
+			return "#cccccc";
+		} else {
+			return props.seller ? "#ff6001" : "#cccccc";
+		}
+	}};
+	background-color: #ffffff;
+	border: ${(props) => {
+		if (props.seller === null) {
+			return "1px solid #cccccc";
+		} else {
+			return props.seller ? "1px solid #ff6001" : "1px solid #cccccc";
+		}
+	}};
+	border-radius: 2px;
+	font-size: 20px;
+`;
+const FalseButton = styled.button`
+	width: 100px;
+	height: 40px;
+	color: ${(props) => {
+		if (props.seller === null) {
+			return "#cccccc";
+		} else {
+			return props.seller ? "#cccccc" : "#ff6001";
+		}
+	}};
+	background-color: #ffffff;
+	border: ${(props) => {
+		if (props.seller === null) {
+			return "1px solid #cccccc";
+		} else {
+			return props.seller ? "1px solid #cccccc" : "1px solid #ff6001";
 		}
 	}};
 	border-radius: 2px;

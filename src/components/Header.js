@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import logo from "../img/logo_transparent.svg";
@@ -16,9 +16,9 @@ const Header = ({ userLogin, setUserLogin, fixedHeader, setFixedHeader }) => {
 		textDecoration: "none",
 	};
 	const history = useHistory();
-	const onLogOutClick = () => {
+	const onLogOutClick = async () => {
 		setUserLogin(false);
-		authService.signOut();
+		await authService.signOut();
 		history.push("/");
 		window.alert("로그아웃하였습니다.");
 	};

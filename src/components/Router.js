@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Home from "../routes/Home";
@@ -68,6 +67,8 @@ const AppRouter = () => {
 export default AppRouter;
 
 const Content = styled.div`
+	width: 100%;
+	height: 100%;
 	background-color: #f7f7f7;
 	margin-top: ${(props) => (props.fixedHeader ? "71px" : "0")};
 `;
