@@ -89,7 +89,7 @@ const ImgCarousel = () => {
 
 	const carousel = imgArray.map((a, index) => {
 		return (
-			<li ref={liRef} alt={a} id={index}>
+			<li ref={liRef} alt={a} id={index} key={index}>
 				<Link to="/new">
 					<Img src={a} />
 				</Link>

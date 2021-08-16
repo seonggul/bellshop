@@ -115,7 +115,7 @@ const Category = styled.div`
 `;
 
 const NaviItem = styled.div`
-	width: 100%;
+	width: 565.5px;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;

@@ -5,8 +5,12 @@ import logo from "../img/logo_transparent.svg";
 import Navigation from "./Navigation";
 import LoginModal from "./LoginModal";
 import { authService } from "../fBase";
+import { UserContext } from "../components/Store";
 
-const Header = ({ userLogin, setUserLogin, fixedHeader, setFixedHeader }) => {
+const Header = ({ fixedHeader, setFixedHeader, userLogin, setUserLogin }) => {
+	const context = useContext(UserContext);
+	console.log(authService.currentUser);
+	console.log(context);
 	const [loginBox, setLoginBox] = useState(false);
 	const [windowWidth, setWindowWidth] = useState(null);
 	const loginRef = useRef(null);
@@ -18,19 +22,23 @@ const Header = ({ userLogin, setUserLogin, fixedHeader, setFixedHeader }) => {
 	const history = useHistory();
 	const onLogOutClick = async () => {
 		setUserLogin(false);
+		await console.log(authService.currentUser);
 		await authService.signOut();
+		await console.log(authService.currentUser);
 		history.push("/");
 		window.alert("로그아웃하였습니다.");
 	};
 	const handleResize = () => {
 		setWindowWidth(window.innerWidth);
 	};
+	const resize = () => {
+		window.addEventListener("resize", handleResize);
+		setLoginPosition(loginRef.current.offsetLeft - 120);
+	};
 
 	useEffect(() => {
-		if (userLogin === false) {
-			window.addEventListener("resize", handleResize);
-			setLoginPosition(loginRef.current.offsetLeft - 120);
-		}
+		userLogin || resize();
+
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
@@ -50,7 +58,7 @@ const Header = ({ userLogin, setUserLogin, fixedHeader, setFixedHeader }) => {
 				<EmptyLine>
 					{userLogin ? (
 						<Link to="/myinfo" style={linkstyle}>
-							<span>정보 수정</span>
+							<span>나의 정보</span>
 						</Link>
 					) : (
 						<a ref={loginRef} onClick={() => setLoginBox(!loginBox)}>

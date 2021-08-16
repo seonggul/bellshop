@@ -68,6 +68,7 @@ const DropDown = ({ hover }) => {
 	const bigList = bigSection.map((a, index) => {
 		return (
 			<BigItem
+				key={index}
 				id={index}
 				onMouseEnter={async (event) => {
 					await setItemNum(event.target.id);

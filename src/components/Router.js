@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Home from "../routes/Home";
 import Ranking from "../routes/Ranking";
@@ -11,6 +11,7 @@ import Join from "../routes/Join";
 import HotDeal from "../routes/HotDeal";
 import MyInfo from "../routes/MyInfo";
 import Footer from "./Footer";
+import Detail from "./Detail";
 import styled from "styled-components";
 
 const AppRouter = () => {
@@ -32,6 +33,9 @@ const AppRouter = () => {
 					</Route>
 					<Route exact path="/ranking">
 						<Ranking />
+					</Route>
+					<Route exact path="/detail">
+						<Detail />
 					</Route>
 					<Route exact path="/new">
 						<New />

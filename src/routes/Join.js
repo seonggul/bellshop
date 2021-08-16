@@ -9,7 +9,7 @@ const Join = ({ setUserLogin }) => {
 	const [pw, setPw] = useState("");
 	const [pwConfirm, setPwConfirm] = useState("");
 	const [name, setName] = useState("");
-	const [phoneNumber, setPhoneNumbe] = useState("");
+	const [phoneNumber, setPhoneNumber] = useState("");
 	const [seller, setSeller] = useState(null);
 	const history = useHistory();
 
@@ -25,7 +25,7 @@ const Join = ({ setUserLogin }) => {
 		} else if (name === "name") {
 			setName(value);
 		} else if (name === "phoneNumber") {
-			setPhoneNumbe(value);
+			setPhoneNumber(value);
 		} else if (name === "pwConfirm") {
 			setPwConfirm(value);
 		}
@@ -61,18 +61,13 @@ const Join = ({ setUserLogin }) => {
 		}
 		try {
 			let data;
-			let userId;
 
 			data = await authService.createUserWithEmailAndPassword(email, pw);
-			setUserLogin(true);
-			userId = data.user.uid;
-			console.log(userId);
-			let users = await {
-				uid: data.user.uid,
-			};
+
+			console.log(data.user);
+
 			let userInfo = await {
 				uid: data.user.uid,
-				id: email,
 				name,
 				phoneNumber,
 				gender: male,
@@ -81,28 +76,22 @@ const Join = ({ setUserLogin }) => {
 			try {
 				console.log("정보넣기시작");
 				await dbService
-					.collection(userId)
-					.doc("userInfo")
+					.collection("users")
+					.doc(email)
 					.set(userInfo)
 					.then(() => {
-						console.log("정보넣기성공");
 						setPwConfirm("");
-						setPhoneNumbe("");
+						setPhoneNumber("");
 						setEmail("");
 						setPw("");
 						setName("");
 						setMale(null);
 						setSeller(null);
-					});
-				await dbService
-					.collection("users")
-					.doc(email)
-					.set(users)
-					.then(() => {
-						console.log("users 정보넣기성공");
+						console.log("정보넣기성공");
 						window.alert("회원가입성공! 로그인 되었습니다.");
+						setUserLogin(true);
+						history.push("/");
 					});
-				history.push("/");
 			} catch (error) {
 				console.log("정보넣기실패" + error.messages);
 			}

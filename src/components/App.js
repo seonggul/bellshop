@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import AppRouter from "./Router";
 import styled from "styled-components";
 import { fbInstance } from "../fBase";
 import UserStore from "./Store";
 
 const App = () => {
+	const [userLogin, setUserLogin] = useState(false);
 	console.log(fbInstance);
 	return (
-		<UserStore>
+		<UserStore userLogin={userLogin}>
 			<AppContainer>
-				<AppRouter />
+				<AppRouter userLogin={userLogin} setUserLogin={setUserLogin} />
 			</AppContainer>
 		</UserStore>
 	);
